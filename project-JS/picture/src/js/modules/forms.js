@@ -2,9 +2,15 @@
 import {postData} from '../services/requests';
 
 const forms = () => {
-    const form = document.querySelectorAll('form'),
+    const forms = document.querySelectorAll('form'),
           inputs = document.querySelectorAll('input'),
           upload = document.querySelectorAll('[name="upload"]');
+    const size = document.querySelector('#size'),
+          material = document.querySelector('#material'),
+          options = document.querySelector('#options'),
+          result = document.querySelector('.calc-price'),
+          textArea = document.querySelector('textarea[name="message"]'); 
+          
           
 
      //checkNumInputs('input[name="user_phone"]');
@@ -23,33 +29,36 @@ const forms = () => {
       question: 'assets/question.php'
      };
      
-     
-
-     const clearInputs = () => {
-         inputs.forEach(item => {
-            item.value = '';
+     const clearInputs = () => { //clear inputs
+         inputs.forEach(i => {
+            i.value = '';
          });
-         upload.forEach(item => {
-            item.previousElementSibling.textContent = 'Файл не выбран';
+         upload.forEach(i => {
+            i.previousElementSibling.textContent = 'Файл не выбран';
          });
+         textArea.value = '';
+         result.textContent = 'Для расчета нужно выбрать размер картины и материал картины';
+         size.selectedIndex = 0;
+         material.selectedIndex = 0;
+         options.selectedIndex = 0;
      };
 
-     upload.forEach(item => {
-         item.addEventListener('input', () => {
-            console.log(item.files[0]);
+     upload.forEach(i => {                      //set filename limit
+         i.addEventListener('input', () => {
+            console.log(i.files[0]);
             let dots;
-            const arr = item.files[0].name.split('.');
+            const arr = i.files[0].name.split('.');
             arr[0].length > 6 ? dots = '...' : dots = '.';
             const name = arr[0].substring(0, 6) + dots + arr[1];
-            item.previousElementSibling.textContent = name;
+            i.previousElementSibling.textContent = name;
          });
      });
      
-     form.forEach(item => {
+     forms.forEach(item => {   // send data
          item.addEventListener('submit', (e) => {
             e.preventDefault();
             
-            let statusMessage = document.createElement('div');
+            let statusMessage = document.createElement('div'); //set message
             statusMessage.classList.add('status');
             item.parentNode.appendChild(statusMessage);
 
@@ -58,7 +67,7 @@ const forms = () => {
                item.style.display = 'none';
             }, 400);
 
-            let statusImg = document.createElement('img');
+            let statusImg = document.createElement('img'); //set image
             statusImg.setAttribute('src', message.spinner);
             statusImg.classList.add('animated', 'fadeInUp');
             statusMessage.appendChild(statusImg);
@@ -67,11 +76,18 @@ const forms = () => {
             textMessage.textContent = message.loading;
             statusMessage.appendChild(textMessage);
 
-            const formData = new FormData(item);
+            const formData = new FormData(item);  //send  formData
+           
             let api;
-            item.closest('.popup-design') || item.classList.contains('calc_form') ? api = path.designer : api = path.question;
+           item.closest('.popup-design') || item.classList.contains("calc_form") ? api = path.designer : api = path.question;
             console.log(api);
-
+            console.log(textArea.value);
+            formData.append('size', size.value);
+            formData.append('material', material.value);
+            formData.append('options', options.value);
+            formData.append('result', result.textContent); 
+            formData.append('message', textArea.value);
+            
             postData(api, formData)
                .then(res => {
                   console.log(res);
