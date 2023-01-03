@@ -26,7 +26,6 @@ const filter = () => {
            no.classList.add('animated', 'fadeIn');
        }
    };
-
   
    menu.addEventListener('click', (e) => {
         let target = e.target;
@@ -38,11 +37,7 @@ const filter = () => {
 
        let listSelect = target.classList[0]; //добавляем фильтрацию
       
-      typeFilter(wrapper.querySelectorAll(`.${listSelect}`));
-
-        if (listSelect == 'grandmother' || listSelect == 'granddad') {
-         typeFilter();
-       }
+      listSelect == 'grandmother' || listSelect == 'granddad'? typeFilter() : typeFilter(wrapper.querySelectorAll(`.${listSelect}`));
    });
 };
 
