@@ -1,5 +1,5 @@
 const pictureSize = (imgSelector) => {
-    const blocks = document.querySelectorAll(imgSelector);
+    const blocks = document.querySelectorAll(imgSelector); // обработка блока замены изображения  при  наведении мыши
 
     function showImg (block) {
         const img = block.querySelector('img');

@@ -1,5 +1,5 @@
 const scrolling = (upSelector) => {
-    const upElem = document.querySelector(upSelector);
+    const upElem = document.querySelector(upSelector); // создание плавного скрола на сайте
 
     window.addEventListener('scroll', () => {
         if (document.documentElement.scrollTop > 1650) {

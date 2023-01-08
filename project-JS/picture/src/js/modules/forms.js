@@ -17,7 +17,7 @@ const forms = () => {
       
      const message = {
         loading: 'Загрузка...',
-        success: 'Спасибо! Мы скро свяжемcя',
+        success: 'Спасибо! Мы скоро свяжемcя',
         failure: 'Что-то пошло не так...',
         spinner: 'assets/img/spinner.gif',
         ok: 'assets/img/ok.png',

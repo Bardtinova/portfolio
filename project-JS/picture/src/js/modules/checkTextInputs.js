@@ -1,5 +1,5 @@
 const checkTextInputs = (selector) => {
-    const txtInputs = document.querySelectorAll(selector);
+    const txtInputs = document.querySelectorAll(selector); // прроверка ввода русских букв || цифр
 
     txtInputs.forEach(input => {
         input.addEventListener('keypress', function(e) {

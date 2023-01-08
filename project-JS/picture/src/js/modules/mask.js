@@ -1,6 +1,6 @@
 const mask = (selector) => {
 
-    let setCursorPosition = (pos, elem) => {
+    let setCursorPosition = (pos, elem) => {  // создание маски ввода
         elem.focus();
 
         if (elem.setSelectionRange) {
